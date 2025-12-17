@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маркетплейс - Все товары в одном месте</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-icon">🛍️</span>
+                    <span class="logo-text">Маркетплейс</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#home">Главная</a>
+                    <a href="#categories">Категории</a>
+                    <a href="#products">Товары</a>
+                    <a href="#about">О нас</a>
+                    <a href="#contact">Контакты</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="search-btn" aria-label="Поиск">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <button class="cart-btn" aria-label="Корзина">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count">0</span>
+                    </button>
+                </div>
+                <button class="mobile-menu-btn" aria-label="Меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главная секция -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Все товары в одном месте</h1>
+                <p class="hero-subtitle">Найдите именно то, что вам нужно среди тысяч предложений от проверенных продавцов</p>
+                <div class="hero-search">
+                    <input type="text" placeholder="Что вы ищете?" class="search-input">
+                    <button class="search-submit">Найти</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">50,000+</span>
+                        <span class="stat-label">Товаров</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2,500+</span>
+                        <span class="stat-label">Продавцов</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">150,000+</span>
+                        <span class="stat-label">Покупателей</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Категории -->
+    <section id="categories" class="categories">
+        <div class="container">
+            <h2 class="section-title">Популярные категории</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">📱</div>
+                    <h3>Электроника</h3>
+                    <p>Смартфоны, ноутбуки, планшеты</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">👕</div>
+                    <h3>Одежда</h3>
+                    <p>Мужская, женская, детская</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🏠</div>
+                    <h3>Дом и сад</h3>
+                    <p>Мебель, декор, садовый инвентарь</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">💄</div>
+                    <h3>Красота</h3>
+                    <p>Косметика, парфюмерия, уход</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🎮</div>
+                    <h3>Игры</h3>
+                    <p>Консоли, игры, аксессуары</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">📚</div>
+                    <h3>Книги</h3>
+                    <p>Художественная, учебная литература</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Товары -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Рекомендуемые товары</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active">Все</button>
+                    <button class="filter-btn">Новинки</button>
+                    <button class="filter-btn">Популярные</button>
+                    <button class="filter-btn">Со скидкой</button>
+                </div>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Товары будут добавлены через JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Преимущества -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают нас</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Быстрая доставка</h3>
+                    <p>Доставляем заказы по всей стране в кратчайшие сроки</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Безопасные платежи</h3>
+                    <p>Все платежи защищены современными системами шифрования</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Гарантия качества</h3>
+                    <p>Проверяем каждого продавца перед размещением товаров</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Поддержка 24/7</h3>
+                    <p>Наша служба поддержки всегда готова помочь</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>О нашем маркетплейсе</h2>
+                    <p>Мы создали этот маркетплейс, чтобы объединить покупателей и продавцов в одном удобном месте. Наша цель - сделать покупки простыми, быстрыми и приятными.</p>
+                    <p>За годы работы мы собрали огромную базу проверенных продавцов и качественных товаров. Каждый день тысячи людей находят здесь именно то, что искали.</p>
+                    <div class="about-stats">
+                        <div class="about-stat">
+                            <span class="about-stat-number">5+</span>
+                            <span class="about-stat-label">лет на рынке</span>
+                        </div>
+                        <div class="about-stat">
+                            <span class="about-stat-number">98%</span>
+                            <span class="about-stat-label">довольных клиентов</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь с нами</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>Телефон</h3>
+                        <p>+7 (800) 123-45-67</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <p>info@marketplace.ru</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Адрес</h3>
+                        <p>Москва, ул. Примерная, д. 1</p>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <input type="text" placeholder="Ваше имя" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea placeholder="Сообщение" rows="5" required></textarea>
+                    <button type="submit" class="submit-btn">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Маркетплейс</h3>
+                    <p>Ваш надежный партнер в покупках</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Покупателям</h4>
+                    <ul>
+                        <li><a href="#">Как сделать заказ</a></li>
+                        <li><a href="#">Доставка и оплата</a></li>
+                        <li><a href="#">Возврат товара</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Продавцам</h4>
+                    <ul>
+                        <li><a href="#">Стать продавцом</a></li>
+                        <li><a href="#">Условия сотрудничества</a></li>
+                        <li><a href="#">Помощь продавцу</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li>+7 (800) 123-45-67</li>
+                        <li>info@marketplace.ru</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Маркетплейс. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
