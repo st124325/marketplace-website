@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     setupEventListeners();
     updateCartCount();
+    renderCart();
 });
 
 // Рендеринг товаров
@@ -147,6 +148,84 @@ function updateCartCount() {
         cartCountEl.textContent = cartCount;
         cartCountEl.style.display = cartCount > 0 ? 'flex' : 'none';
     }
+    renderCart();
+}
+
+// Открытие корзины
+function openCart() {
+    const modal = document.getElementById('cartModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Закрытие корзины
+function closeCart() {
+    const modal = document.getElementById('cartModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Рендеринг корзины
+function renderCart() {
+    const cartItems = document.getElementById('cartItems');
+    const cartFooter = document.getElementById('cartFooter');
+    const cartTotal = document.getElementById('cartTotal');
+    
+    if (!cartItems) return;
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<div class="cart-empty"><p>Ваша корзина пуста</p></div>';
+        if (cartFooter) cartFooter.style.display = 'none';
+    } else {
+        // Группируем товары по ID
+        const groupedCart = {};
+        cart.forEach(item => {
+            if (groupedCart[item.id]) {
+                groupedCart[item.id].quantity++;
+            } else {
+                groupedCart[item.id] = { ...item, quantity: 1 };
+            }
+        });
+        
+        cartItems.innerHTML = Object.values(groupedCart).map(item => `
+            <div class="cart-item">
+                <div class="cart-item-image">${item.emoji}</div>
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">${formatPrice(item.price)} ₽ × ${item.quantity}</div>
+                </div>
+                <button class="cart-item-remove" onclick="removeFromCart(${item.id})" aria-label="Удалить">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        `).join('');
+        
+        // Подсчет общей суммы
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        if (cartTotal) {
+            cartTotal.textContent = formatPrice(total) + ' ₽';
+        }
+        if (cartFooter) {
+            cartFooter.style.display = 'block';
+        }
+    }
+}
+
+// Удаление из корзины
+function removeFromCart(productId) {
+    const index = cart.findIndex(item => item.id === productId);
+    if (index !== -1) {
+        cart.splice(index, 1);
+        cartCount--;
+        updateCartCount();
+    }
 }
 
 // Настройка обработчиков событий
@@ -211,6 +290,38 @@ function setupEventListeners() {
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    }
+
+    // Открытие корзины
+    const cartBtn = document.querySelector('.cart-btn');
+    if (cartBtn) {
+        cartBtn.addEventListener('click', openCart);
+    }
+
+    // Закрытие корзины
+    const closeBtn = document.querySelector('.cart-close-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeCart);
+    }
+
+    // Закрытие при клике вне модального окна
+    const cartModal = document.getElementById('cartModal');
+    if (cartModal) {
+        cartModal.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                closeCart();
+            }
+        });
+    }
+
+    // Кнопка оформления заказа
+    const checkoutBtn = document.querySelector('.cart-checkout-btn');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length > 0) {
+                alert('Спасибо за заказ! В реальном приложении здесь будет переход на страницу оформления заказа.');
+            }
         });
     }
 
