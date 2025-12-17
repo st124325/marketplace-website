@@ -138,3 +138,5 @@ const products = [
     }
 ];
 
+// Экспортируем в глобальную область видимости
+window.products = products;
