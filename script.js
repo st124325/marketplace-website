@@ -1,7 +1,82 @@
-// Данные товаров загружаются из products-data.js
-// Если файл не загружен, используем пустой массив
-if (typeof products === 'undefined') {
-    var products = [];
+// Данные товаров - используем глобальную переменную из products-data.js или определяем здесь
+let products = typeof window.products !== 'undefined' ? window.products : [];
+
+// Если products-data.js не загрузился, используем данные напрямую
+if (products.length === 0) {
+    products = [
+        {
+            id: 1,
+            name: "Смартфон Premium",
+            description: "Новейшая модель с отличной камерой и производительностью",
+            price: 29990,
+            oldPrice: 34990,
+            badge: "Скидка",
+            emoji: "📱"
+        },
+        {
+            id: 2,
+            name: "Ноутбук Pro",
+            description: "Мощный ноутбук для работы и развлечений",
+            price: 59990,
+            oldPrice: null,
+            badge: "Новинка",
+            emoji: "💻"
+        },
+        {
+            id: 3,
+            name: "Наушники Wireless",
+            description: "Беспроводные наушники с шумоподавлением",
+            price: 7990,
+            oldPrice: 9990,
+            badge: "Популярное",
+            emoji: "🎧"
+        },
+        {
+            id: 4,
+            name: "Умные часы",
+            description: "Отслеживание здоровья и уведомления",
+            price: 14990,
+            oldPrice: null,
+            badge: "Новинка",
+            emoji: "⌚"
+        },
+        {
+            id: 5,
+            name: "Планшет",
+            description: "Идеальный для работы и творчества",
+            price: 24990,
+            oldPrice: 29990,
+            badge: "Скидка",
+            emoji: "📱"
+        },
+        {
+            id: 6,
+            name: "Камера 4K",
+            description: "Профессиональная камера для видеосъемки",
+            price: 44990,
+            oldPrice: null,
+            badge: "Популярное",
+            emoji: "📷"
+        },
+        {
+            id: 7,
+            name: "Клавиатура механическая",
+            description: "Удобная клавиатура для геймеров и программистов",
+            price: 5990,
+            oldPrice: 7990,
+            badge: "Скидка",
+            emoji: "⌨️"
+        },
+        {
+            id: 8,
+            name: "Монитор 4K",
+            description: "Большой монитор с отличным качеством изображения",
+            price: 34990,
+            oldPrice: null,
+            badge: "Новинка",
+            emoji: "🖥️"
+        }
+    ];
 }
 
 let cart = [];
@@ -9,29 +84,24 @@ let cartCount = 0;
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
-    // Ждем, пока данные загрузятся
-    if (typeof products === 'undefined' || products.length === 0) {
-        // Если данные еще не загружены, ждем немного
-        setTimeout(() => {
-            if (typeof products !== 'undefined' && products.length > 0) {
-                renderProducts();
-                setupEventListeners();
-                updateCartCount();
-                renderCart();
-            } else {
-                console.error('Товары не загружены. Проверьте products-data.js');
-                // Показываем сообщение об ошибке
-                const grid = document.getElementById('productsGrid');
-                if (grid) {
-                    grid.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-light);"><p>Товары загружаются...</p></div>';
-                }
-            }
-        }, 100);
-    } else {
+    // Проверяем, загрузились ли данные из products-data.js
+    if (typeof window.products !== 'undefined' && window.products.length > 0) {
+        products = window.products;
+    }
+    
+    console.log('Товаров загружено:', products.length);
+    
+    if (products.length > 0) {
         renderProducts();
         setupEventListeners();
         updateCartCount();
         renderCart();
+    } else {
+        console.error('Товары не загружены!');
+        const grid = document.getElementById('productsGrid');
+        if (grid) {
+            grid.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-light);"><p>Товары не загружены. Обновите страницу.</p></div>';
+        }
     }
 });
 
