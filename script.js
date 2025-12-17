@@ -9,10 +9,30 @@ let cartCount = 0;
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
-    renderProducts();
-    setupEventListeners();
-    updateCartCount();
-    renderCart();
+    // Ждем, пока данные загрузятся
+    if (typeof products === 'undefined' || products.length === 0) {
+        // Если данные еще не загружены, ждем немного
+        setTimeout(() => {
+            if (typeof products !== 'undefined' && products.length > 0) {
+                renderProducts();
+                setupEventListeners();
+                updateCartCount();
+                renderCart();
+            } else {
+                console.error('Товары не загружены. Проверьте products-data.js');
+                // Показываем сообщение об ошибке
+                const grid = document.getElementById('productsGrid');
+                if (grid) {
+                    grid.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-light);"><p>Товары загружаются...</p></div>';
+                }
+            }
+        }, 100);
+    } else {
+        renderProducts();
+        setupEventListeners();
+        updateCartCount();
+        renderCart();
+    }
 });
 
 // Рендеринг товаров
