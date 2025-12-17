@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Товар - Маркетплейс</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="product.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-icon">🛍️</span>
+                    <a href="index.html" class="logo-text" style="text-decoration: none; color: inherit;">Маркетплейс</a>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html#home">Главная</a>
+                    <a href="index.html#categories">Категории</a>
+                    <a href="index.html#products">Товары</a>
+                    <a href="index.html#about">О нас</a>
+                    <a href="index.html#contact">Контакты</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="cart-btn" aria-label="Корзина">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                        </svg>
+                        <span class="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Страница товара -->
+    <section class="product-page">
+        <div class="container">
+            <a href="index.html#products" class="back-link">← Назад к каталогу</a>
+            
+            <div class="product-detail" id="productDetail">
+                <!-- Контент будет загружен через JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно корзины -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2>Корзина</h2>
+                <button class="cart-close-btn" aria-label="Закрыть">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <div class="cart-empty">
+                    <p>Ваша корзина пуста</p>
+                </div>
+            </div>
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="cart-total">
+                    <span>Итого:</span>
+                    <span id="cartTotal">0 ₽</span>
+                </div>
+                <button class="cart-checkout-btn">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="products-data.js"></script>
+    <script src="script.js"></script>
+    <script src="product.js"></script>
+</body>
+</html>
+

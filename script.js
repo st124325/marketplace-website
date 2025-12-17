@@ -1,78 +1,8 @@
-// Данные товаров
-const products = [
-    {
-        id: 1,
-        name: "Смартфон Premium",
-        description: "Новейшая модель с отличной камерой и производительностью",
-        price: 29990,
-        oldPrice: 34990,
-        badge: "Скидка",
-        emoji: "📱"
-    },
-    {
-        id: 2,
-        name: "Ноутбук Pro",
-        description: "Мощный ноутбук для работы и развлечений",
-        price: 59990,
-        oldPrice: null,
-        badge: "Новинка",
-        emoji: "💻"
-    },
-    {
-        id: 3,
-        name: "Наушники Wireless",
-        description: "Беспроводные наушники с шумоподавлением",
-        price: 7990,
-        oldPrice: 9990,
-        badge: "Популярное",
-        emoji: "🎧"
-    },
-    {
-        id: 4,
-        name: "Умные часы",
-        description: "Отслеживание здоровья и уведомления",
-        price: 14990,
-        oldPrice: null,
-        badge: "Новинка",
-        emoji: "⌚"
-    },
-    {
-        id: 5,
-        name: "Планшет",
-        description: "Идеальный для работы и творчества",
-        price: 24990,
-        oldPrice: 29990,
-        badge: "Скидка",
-        emoji: "📱"
-    },
-    {
-        id: 6,
-        name: "Камера 4K",
-        description: "Профессиональная камера для видеосъемки",
-        price: 44990,
-        oldPrice: null,
-        badge: "Популярное",
-        emoji: "📷"
-    },
-    {
-        id: 7,
-        name: "Клавиатура механическая",
-        description: "Удобная клавиатура для геймеров и программистов",
-        price: 5990,
-        oldPrice: 7990,
-        badge: "Скидка",
-        emoji: "⌨️"
-    },
-    {
-        id: 8,
-        name: "Монитор 4K",
-        description: "Большой монитор с отличным качеством изображения",
-        price: 34990,
-        oldPrice: null,
-        badge: "Новинка",
-        emoji: "🖥️"
-    }
-];
+// Данные товаров загружаются из products-data.js
+// Если файл не загружен, используем пустой массив
+if (typeof products === 'undefined') {
+    var products = [];
+}
 
 let cart = [];
 let cartCount = 0;
@@ -99,7 +29,7 @@ function renderProducts(filter = 'all') {
     }
 
     grid.innerHTML = filteredProducts.map(product => `
-        <div class="product-card" style="position: relative;">
+        <div class="product-card" style="position: relative;" onclick="window.location.href='product.html?id=${product.id}'">
             ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
             <div class="product-image">${product.emoji}</div>
             <div class="product-info">
@@ -110,7 +40,7 @@ function renderProducts(filter = 'all') {
                         <span class="product-price">${formatPrice(product.price)} ₽</span>
                         ${product.oldPrice ? `<span class="product-old-price">${formatPrice(product.oldPrice)} ₽</span>` : ''}
                     </div>
-                    <button class="add-to-cart" onclick="addToCart(${product.id})">В корзину</button>
+                    <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">В корзину</button>
                 </div>
             </div>
         </div>
@@ -126,18 +56,21 @@ function formatPrice(price) {
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     if (product) {
+        if (!cart) cart = [];
         cart.push(product);
         cartCount++;
         updateCartCount();
         
         // Анимация кнопки
-        const btn = event.target;
-        btn.textContent = 'Добавлено!';
-        btn.style.background = '#10b981';
-        setTimeout(() => {
-            btn.textContent = 'В корзину';
-            btn.style.background = '';
-        }, 1000);
+        const btn = window.addToCartEvent ? window.addToCartEvent.target : event.target;
+        if (btn) {
+            btn.textContent = 'Добавлено!';
+            btn.style.background = '#10b981';
+            setTimeout(() => {
+                btn.textContent = btn.classList.contains('product-detail-btn-primary') ? 'Добавить в корзину' : 'В корзину';
+                btn.style.background = '';
+            }, 1000);
+        }
     }
 }
 
@@ -254,7 +187,33 @@ function setupEventListeners() {
         searchSubmit.addEventListener('click', () => {
             const query = searchInput.value.toLowerCase();
             if (query) {
-                alert(`Поиск по запросу: "${query}"\n\nВ реальном приложении здесь будет поиск по товарам.`);
+                const filtered = products.filter(p => 
+                    p.name.toLowerCase().includes(query) || 
+                    p.description.toLowerCase().includes(query)
+                );
+                
+                if (filtered.length > 0) {
+                    const grid = document.getElementById('productsGrid');
+                    grid.innerHTML = filtered.map(product => `
+                        <div class="product-card" style="position: relative;" onclick="window.location.href='product.html?id=${product.id}'">
+                            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                            <div class="product-image">${product.emoji}</div>
+                            <div class="product-info">
+                                <h3 class="product-name">${product.name}</h3>
+                                <p class="product-description">${product.description}</p>
+                                <div class="product-footer">
+                                    <div>
+                                        <span class="product-price">${formatPrice(product.price)} ₽</span>
+                                        ${product.oldPrice ? `<span class="product-old-price">${formatPrice(product.oldPrice)} ₽</span>` : ''}
+                                    </div>
+                                    <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">В корзину</button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    alert('Товары по вашему запросу не найдены');
+                }
             }
         });
     }
